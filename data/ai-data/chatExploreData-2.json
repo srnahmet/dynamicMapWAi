@@ -1,0 +1,140 @@
+{
+    "hasGeometry": true,
+    "isGraphic": true,
+    "mapResult": {
+        "features": [
+            {
+                "geometry": {
+                    "coordinates": [
+                        [
+                            [
+                                33.1163719,
+                                39.250457
+                            ],
+                            [
+                                33.1183968,
+                                39.2494123
+                            ],
+                            [
+                                33.1215865,
+                                39.2481211
+                            ]
+                        ]
+                    ],
+                    "type": "MultiLineString"
+                },
+                "properties": {
+                    "ad": "KONYA",
+                    "id": 2264432,
+                    "maxspeed": 140,
+                    "name": "Ankara Niğde Otoyolu"
+                },
+                "type": "Feature"
+            },
+            {
+                "geometry": {
+                    "coordinates": [
+                        [
+                            [
+                                33.1215865,
+                                39.2481211
+                            ],
+                            [
+                                33.1221562,
+                                39.2478939
+                            ]
+                        ]
+                    ],
+                    "type": "MultiLineString"
+                },
+                "properties": {
+                    "ad": "KONYA",
+                    "id": 2264433,
+                    "maxspeed": 140,
+                    "name": "Ankara Niğde Otoyolu"
+                },
+                "type": "Feature"
+            },
+            {
+                "geometry": {
+                    "coordinates": [
+                        [
+                            [
+                                33.1216172,
+                                39.2483126
+                            ],
+                            [
+                                33.1183956,
+                                39.2496631
+                            ],
+                            [
+                                33.1164837,
+                                39.2506008
+                            ]
+                        ]
+                    ],
+                    "type": "MultiLineString"
+                },
+                "properties": {
+                    "ad": "KONYA",
+                    "id": 2264434,
+                    "maxspeed": 140,
+                    "name": "Ankara Niğde Otoyolu"
+                },
+                "type": "Feature"
+            },
+            {
+                "geometry": {
+                    "coordinates": [
+                        [
+                            [
+                                33.1221925,
+                                39.2481024
+                            ],
+                            [
+                                33.1216172,
+                                39.2483126
+                            ]
+                        ]
+                    ],
+                    "type": "MultiLineString"
+                },
+                "properties": {
+                    "ad": "KONYA",
+                    "id": 2264435,
+                    "maxspeed": 140,
+                    "name": "Ankara Niğde Otoyolu"
+                },
+                "type": "Feature"
+            }
+        ],
+        "type": "FeatureCollection"
+    },
+    "resultList": {
+        "ad": {
+            "0": "KONYA",
+            "1": "KONYA",
+            "2": "KONYA",
+            "3": "KONYA"
+        },
+        "id": {
+            "0": 2264432,
+            "1": 2264433,
+            "2": 2264434,
+            "3": 2264435
+        },
+        "maxspeed": {
+            "0": 140,
+            "1": 140,
+            "2": 140,
+            "3": 140
+        },
+        "name": {
+            "0": "Ankara Niğde Otoyolu",
+            "1": "Ankara Niğde Otoyolu",
+            "2": "Ankara Niğde Otoyolu",
+            "3": "Ankara Niğde Otoyolu"
+        }
+    },
+    "sqlQuery": "SELECT y.name, y.maxspeed, i.ad, ST_Transform(y.geom, 4326) as geom, y.id\nFROM dynamic_map_w_ai.yol y\nJOIN dynamic_map_w_ai.il i ON ST_Within(y.geom, i.geom)\nWHERE y.maxspeed >= 120\nAND i.ad = (\n    SELECT i2.ad\n    FROM dynamic_map_w_ai.il i2\n    ORDER BY ST_Area(ST_Transform(i2.geom, 3857)) DESC\n    LIMIT 1\n)\nLIMIT 5;"
+}
